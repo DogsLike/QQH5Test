@@ -11,9 +11,9 @@ import urllib
 import struct
 import time
 
-AppId = 3875823424
-AppKey = bQkrufwkbtYzsMFK
-AppDataKey = DZubTFYXKyxgtWZJ
+AppId = "3875823424"
+AppKey = "bQkrufwkbtYzsMFK"
+AppDataKey = "DZubTFYXKyxgtWZJ"
 
 
 # Create your views here.
