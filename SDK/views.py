@@ -18,7 +18,8 @@ AppDataKey = "DZubTFYXKyxgtWZJ"
 
 # Create your views here.
 def appSig(request):
-	sig = Cryption.GetAppSig(AppId,time.time(),"teeeeeee",AppKey,AppDataKey);
+	timeStamp = time.mktime(time.time());
+	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
 	return HttpResponse(sig)
 
 class Cryption:
