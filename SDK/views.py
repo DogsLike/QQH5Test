@@ -8,6 +8,7 @@ from binascii import a2b_hex,b2a_hex
 from urlparse import urlparse
 import hmac
 import urllib
+import hashlib
 import struct
 import datetime
 import time
