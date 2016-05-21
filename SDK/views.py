@@ -9,6 +9,7 @@ from urlparse import urlparse
 import hmac
 import urllib
 import struct
+import datetime
 import time
 
 AppId = "3875823424"
@@ -18,7 +19,7 @@ AppDataKey = "DZubTFYXKyxgtWZJ"
 
 # Create your views here.
 def appSig(request):
-	timeStamp = time.mktime(time.time());
+	timeStamp = time.mktime(datetime.datetime.now().timetuple());
 	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
 	return HttpResponse(sig)
 
