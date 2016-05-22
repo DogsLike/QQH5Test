@@ -23,16 +23,15 @@ def appSig(request):
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
 	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
 	response = HttpResponse(sig)
-	response.setdefault("Access-Control-Allow-Origin", "*");
-	return HttpResponse(sig)
+	response['Access-Control-Allow-Origin'] = "*"
+	return response
 
 def dataSig(request):
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
 	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
-	return HttpResponse(sig)
-
-
-
+	response = HttpResponse(sig)
+	response['Access-Control-Allow-Origin'] = "*"
+	return response
 
 
 
