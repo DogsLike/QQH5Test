@@ -22,7 +22,22 @@ AppDataKey = "DZubTFYXKyxgtWZJ"
 def appSig(request):
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
 	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
+	response = HttpResponse(sig)
+	response.setdefault("Access-Control-Allow-Origin", "*");
 	return HttpResponse(sig)
+
+def dataSig(request):
+	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
+	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee",AppKey,AppDataKey);
+	return HttpResponse(sig)
+
+
+
+
+
+
+
+
 
 class Cryption:
     
