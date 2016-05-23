@@ -21,7 +21,7 @@ AppDataKey = "DZubTFYXKyxgtWZJ"
 # Create your views here.
 def appSig(request):
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
-	sig = Cryption.GetAppSig(AppId,timeStamp,request.data,AppKey);
+	sig = Cryption.GetAppSig(AppId,timeStamp,"teeeeeee" ,AppKey,dataKey);
 	response = HttpResponse(sig)
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
