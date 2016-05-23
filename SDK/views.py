@@ -58,11 +58,7 @@ def getPrice(request):
 
 
 def randomString():
-{
 	return string.join(random.sample(['a','b','c','d','e','f','g','h','i','j','k','l','m','n'], 8)).replace(" ","")
-}
-
-
 
 
 class Cryption:
