@@ -34,7 +34,7 @@ def dataSig(request):
 		response['Access-Control-Allow-Origin'] = "*"
 		return response
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
-	sig = Cryption.GetAppSig(request.path,request.method,request.POST,AppKey);
+	sig = Cryption.GetDataSig(request.path,request.method,request.POST,AppKey);
 	response = HttpResponse(sig)
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
