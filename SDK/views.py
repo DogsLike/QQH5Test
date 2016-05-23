@@ -22,8 +22,7 @@ AppDataKey = "DZubTFYXKyxgtWZJ"
 
 # Create your views here.
 def appSig(request):
-	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
-	sig = Cryption.GetAppSig(AppId,timeStamp,randomString(),AppKey,AppDataKey);
+	sig = Cryption.GetAppSig(AppId,timeStamp(),randomString(),AppKey,AppDataKey);
 	response = HttpResponse(sig)
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
@@ -47,7 +46,7 @@ def getPrice(request):
 	if reqSigServer == queryMap["reqsig"]:
 		data = Cryption.GetPlainData(queryMap["data"], AppDataKey);
 		result = {"data": "", "rspsig": ""};
-		respObj = {"ret": 0, "time": time.time(), "nonce": randomString(), "payamount":20};
+		respObj = {"ret": 0, "time": timeStamp(), "nonce": randomString(), "payamount":20};
 		dataJson = json.dumps(respObj);
 		result["data"] = Cryption.GetCipherData(dataJson,AppDataKey);
 		queryMap2 = {"c":"Qqweb", "m":"inquiry", "data":result["data"], reqsig:""};
@@ -56,9 +55,39 @@ def getPrice(request):
 		return HttpResponse(result);		
 	return HttpResponse("ERROR");
 
+def sendGoods(request):
+	queryMap = {"c":request.GET.get("c"),"m":request.GET.get("m"),"data":request.GET.get("data"),"reqsig":request.GET.get("reqsig")};
+	reqSigServer = Cryption.GetDataSig("/SDK/sendgoods","GET",queryMap,AppKey);
+	if reqSigServer == queryMap["reqsig"]:
+		data = Cryption.GetPlainData(queryMap["data"], AppDataKey);
+		# TODO 服务器发货
+		# data.orderno 订单号，唯一
+		# data.qbopenid 用户ID
+		# data.payitem 用户购买的道具
+		# data.payamount 用户付款额
+		# data.custommeta 自定义数据
+		result = {"data": "", "rspsig": ""};
+		respObj = {"ret": 0, "time": timeStamp(), "nonce": randomString()};
+		dataJson = json.dumps(respObj);
+		result["data"] = Cryption.GetCipherData(dataJson,AppDataKey);
+		queryMap2 = {"c":"Qqweb", "m":"inquiry", "data":result["data"], reqsig:""};
+		result["rspsig"] = Cryption.GetDataSig("/SDK/sendgoods", "GET",queryMap2 , AppKey);
+		result = json.dumps(result);
+		return HttpResponse(result);		
+	return HttpResponse("ERROR");
+
+
+
+
+
+
+
 
 def randomString():
 	return string.join(random.sample(['a','b','c','d','e','f','g','h','i','j','k','l','m','n'], 8)).replace(" ","")
+
+def timeStamp():
+	return str(int(time.mktime(datetime.datetime.now().timetuple())));
 
 
 class Cryption:
