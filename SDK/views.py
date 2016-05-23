@@ -29,12 +29,12 @@ def appSig(request):
 def dataSig(request):
 	if request.method=="POST":
 		timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
-		sig = Cryption.GetDataSig(request.POST["url"],request.method,request.POST,AppKey);
+		sig = Cryption.GetDataSig("/","POST",request.POST,AppKey);
 		response = HttpResponse(sig)
 		response['Access-Control-Allow-Origin'] = "*"
 		return response
 	timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
-	sig = Cryption.GetAppSig(request.POST["url"],request.method,request.POST,AppKey);
+	sig = Cryption.GetAppSig(request.path,request.method,request.POST,AppKey);
 	response = HttpResponse(sig)
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
