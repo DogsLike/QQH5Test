@@ -27,6 +27,12 @@ def appSig(request):
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
 
+def appSigData(request):
+	sig = Cryption.GetCipherData(AppId+"_"+timeStamp()+"_"+randomString());
+	response = HttpResponse(sig)
+	response['Access-Control-Allow-Origin'] = "*"
+	return response
+
 def dataSig(request):
 	if request.method=="POST":
 		timeStamp = str(int(time.mktime(datetime.datetime.now().timetuple())));
