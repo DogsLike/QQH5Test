@@ -28,7 +28,7 @@ def appSig(request):
 	return response
 
 def appSigData(request):
-	sig = Cryption.GetCipherData(AppId+"_"+timeStamp()+"_"+randomString());
+	sig = Cryption.GetCipherData(AppId+"_"+timeStamp()+"_"+randomString(),AppDataKey);
 	response = HttpResponse(sig)
 	response['Access-Control-Allow-Origin'] = "*"
 	return response
